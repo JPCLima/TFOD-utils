@@ -5,21 +5,18 @@ import shutil
 
 # Initiate argument parser
 parser = argparse.ArgumentParser(
-    description="Generate a labelmap")
+    description="Split train test images")
 
 parser.add_argument("-c",
                     "--collected_path",
-                    default='Tensorflow\\workspace\\images\\collectedimages',
                     help="path of the collectd images")
 
 parser.add_argument("-t",
                     "--train_path",
-                    default='Tensorflow\\workspace\\images\\train',
                     help="path of train folder")
 
 parser.add_argument("-e",
                     "--test_path",
-                    default='Tensorflow\\workspace\\images\\test',
                     help="path of test folder")
 
 parser.add_argument("-s",
@@ -45,7 +42,8 @@ def train_test_split(images_collected_path,
     for i in os.listdir(images_collected_path):
         counter = 0
         subfolder_path = os.path.join(images_collected_path, i)
-        collected_image_size = len([name for name in os.listdir(subfolder_path)])
+        collected_image_size = len(
+            [name for name in os.listdir(subfolder_path)])
         train_number = round_up_to_even(collected_image_size * split_test_size)
 
         for root, dirs, files in os.walk(subfolder_path, topdown=False):
