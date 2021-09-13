@@ -9,6 +9,10 @@ import os
 parser = argparse.ArgumentParser(
     description="Update config file")
 
+parser.add_argument("-w",
+                    "--network_architecture",
+                    help="Neuro network architecture")
+
 parser.add_argument("-p",
                     "--pipeline_config",
                     help="path to config file")
@@ -42,7 +46,7 @@ parser.add_argument("-b",
 args = parser.parse_args()
 
 
-def update_config(config_path, labelmap_path, pretrained_path,
+def update_config(network_architecture, config_path, labelmap_path, pretrained_path,
                   pretrained_model_name, annotation_path, num_classes, batch_size):
 
     config = config_util.get_configs_from_pipeline_file(config_path)
@@ -52,8 +56,18 @@ def update_config(config_path, labelmap_path, pretrained_path,
         proto_str = f.read()
         text_format.Merge(proto_str, pipeline_config)
 
+    print(network_architecture)
+
+    # Choose architecture
+    if (network_architecture == 'sdd'):
+        pipeline_config.model.ssd.num_classes = num_classes
+    elif (network_architecture == 'center_net'):
+        pipeline_config.model.center_net.num_classes = num_classes
+    elif (network_architecture == 'faster_rcnn'):
+        pipeline_config.model.faster_rcnn.num_classes = num_classes
+
+
     # Modify config file
-    pipeline_config.model.ssd.num_classes = num_classes
     pipeline_config.train_config.batch_size = batch_size
     pipeline_config.train_config.fine_tune_checkpoint = os.path.join(
         pretrained_path, pretrained_model_name, 'checkpoint', 'ckpt-0')
@@ -73,7 +87,7 @@ def update_config(config_path, labelmap_path, pretrained_path,
 
 if __name__ == '__main__':
     try:
-        update_config(args.pipeline_config, args.label_map, args.pre_model_path,
+        update_config(args.network_architecture, args.pipeline_config, args.label_map, args.pre_model_path,
                       args.pre_model_name, args.annotation_path, args.num_classes, args.batch_size)
         print('Config file updated Successfully!!!')
     except Exception as e:
