@@ -5,7 +5,7 @@ import shutil
 
 # Initiate argument parser
 parser = argparse.ArgumentParser(
-    description="Split train test images")
+    description="Generate a labelmap")
 
 parser.add_argument("-c",
                     "--collected_path",
@@ -40,10 +40,11 @@ def train_test_split(images_collected_path,
         return math.ceil(f / 2.) * 2
 
     for i in os.listdir(images_collected_path):
+        
         counter = 0
         subfolder_path = os.path.join(images_collected_path, i)
-        collected_image_size = len(
-            [name for name in os.listdir(subfolder_path)])
+        collected_image_size = len([name for name in os.listdir(subfolder_path)])
+        
         train_number = round_up_to_even(collected_image_size * split_test_size)
 
         for root, dirs, files in os.walk(subfolder_path, topdown=False):
@@ -64,6 +65,7 @@ def train_test_split(images_collected_path,
         Train number: {train_number}\n\
         Test number: {collected_image_size - train_number}\n\
         Number of files {counter}', end='\n\n')
+
 
 
 if __name__ == '__main__':
