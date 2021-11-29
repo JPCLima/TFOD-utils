@@ -64,7 +64,7 @@ def generate_random_image(bg_path, mask_path, random_images_path):
             random_mask = get_random_img(mask_path)        
             # Load mask
             mask = Image.open(random_mask)
-            # Keep the apsect ratio of the paperclips when they are scaled
+            # Keep the apsect ratio of the object when they are scaled
             aspect = mask.width/mask.height
             # Get random size
             drink_size = randint(200,400)
@@ -76,6 +76,7 @@ def generate_random_image(bg_path, mask_path, random_images_path):
             en = ImageEnhance.Brightness(mask_2)
             random_brightness = random.uniform(0.5,1)
             mask_2 = en.enhance(random_brightness)
+            # Change blur
             random_blur = random.randint(0, 2)
             mask_2 = mask_2.filter(ImageFilter.GaussianBlur(radius = random_blur))
             # Rotation mask
