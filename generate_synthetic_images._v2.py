@@ -151,7 +151,7 @@ def generate_random_image(folders_path, type):
     # Get and resize background
     bg = get_random_bg(path_bg)
     bg = Image.open(bg)
-    bg = bg.resize((900,1200),resample=Image.LANCZOS)
+    bg = bg.resize((700,900),resample=Image.LANCZOS)
 
     # Random bg brightness
     bg = random_brightness(bg)
