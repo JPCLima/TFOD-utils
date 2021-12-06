@@ -98,7 +98,7 @@ def abs_position(x, y, bg, mask):
     if (x < 0): x = 0
     if (y < 0): y = 0
     if (x > bg.width): x = bg.width
-    if (y > bg.height): x = bg.height
+    if (y > bg.height): y = bg.height
     return x, y
 
 def random_size(img):
@@ -172,13 +172,13 @@ def generate_random_image(folders_path, type):
 
     # Save image
     render_img.save(image_path)
-
-    anotation_list = []
-    # Anotations string          
-    xmin, ymin, xmax, ymax = x, y, x + mask.width, y + mask.height
+     
 
     # Make sure the anotation will in the range
-    x, y = abs_position(x, y, bg, mask)
+    anotation_list = []
+    xmin, ymin = abs_position(x, y, bg, mask)
+    xmax, ymax = abs_position(x + mask.width, y + mask.height, bg, mask)
+
     anotation_str = ','.join(map(str, [xmin, ymin, xmax, ymax, mask_name]))            
     anotation_list.append(anotation_str)
     return image_path, anotation_list    
