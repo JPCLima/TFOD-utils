@@ -151,8 +151,10 @@ python generate_synthetic_images_v2.py -p <path_to_images> -n <number_of_images>
 
 Examples of the synthetic images created by the script:
 - Version 1:
+  
 ![](assets/Screenshot_1.png)
 
 - Version 2:
+  
 ![Version 2](assets/Screenshot_2.png)
 
