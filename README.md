@@ -132,5 +132,26 @@ python update_config_file.py -w <network_architecture> -p <pipeline_config> -m <
 - `-c`, `--num_classes`: Number of classes in the dataset.
 - `-b`, `--batch_size`: Batch size for training.
 
+### 7. Generate Synthetic Images 
 
+**Script:** generate_synthetic_images_v2.py
+
+**Description:** A script creates synthetic images by combining backgrounds and masks, applying random transformations to the masks, and pasting them onto the backgrounds at random positions. 
+Transformations: brightness, blur, rotation, and mask size.
+
+**Usage:**
+
+```shell
+python generate_synthetic_images_v2.py -p <path_to_images> -n <number_of_images>
+```
+
+**Arguments:**
+ - `-p`, --path: Path to the directory containing the background and mask images.
+ - `-n`, --number_img: Number of random images to generate.
+
+Examples of the synthetic images created by the script:
+
+![Version 1](assets/Screenshot_1.png)
+
+![Version 2](assets/Screenshot_2.png)
 
